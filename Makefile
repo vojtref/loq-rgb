@@ -28,6 +28,9 @@ all: $(BINDIR)/$(TARGET)
 install: all
 	install -Dm755 $(BINDIR)/$(TARGET) $(DESTDIR)$(PREFIX)/bin/$(TARGET)
 
+uninstall:
+	rm -f $(DESTDIR)$(PREFIX)/bin/$(TARGET)
+
 clean:
 	@printf '\033[40;38;5;75m << Cleaning >> \033[0m\n'
 	@rm -rf $(OBJDIR) $(BINDIR)
@@ -54,4 +57,4 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c | iwyu
 
 -include $(DEPS)
 
-.PHONY: all install clean format iwyu
+.PHONY: all install uninstall clean format iwyu
