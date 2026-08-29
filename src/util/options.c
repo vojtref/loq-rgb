@@ -30,7 +30,7 @@
 	"\t\tSets the color of the corresponding zone, RGB must be a valid hex "   \
 	"code (may be prefixed with #)\n"                                          \
 	"\t\tNote: ignored for modes wave, smooth\n"                               \
-	"\t\tdefault: #000000\n"                                                   \
+	"\t\tdefault: #ffffff\n"                                                   \
 	"\t-v, --verbose\n"                                                        \
 	"\t\tIncreases the output log verbosity, may be repeated\n"                \
 	"\t-h, --help\n"                                                           \
