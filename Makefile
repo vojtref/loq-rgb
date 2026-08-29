@@ -54,4 +54,4 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c | iwyu
 
 -include $(DEPS)
 
-.PHONY: all clean format iwyu
+.PHONY: all install clean format iwyu
