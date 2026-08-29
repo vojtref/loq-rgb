@@ -3,6 +3,9 @@ MAKEFLAGS += --output-sync=target
 
 TARGET := $(shell basename $(CURDIR))
 
+PREFIX ?= /usr/local
+DESTDIR ?=
+
 SRCDIR := src
 OBJDIR := obj
 BINDIR := bin
@@ -17,10 +20,13 @@ CFLAGS := -iquote $(SRCDIR) \
           -MMD -MP \
           -std=c23 -pedantic -Wall -Wextra \
           -Os
-LFLAGS := 
+LFLAGS :=
 LDLIBS := usb-1.0
 
 all: $(BINDIR)/$(TARGET)
+
+install: all
+	install -Dm755 $(BINDIR)/$(TARGET) $(DESTDIR)$(PREFIX)/bin/$(TARGET)
 
 clean:
 	@printf '\033[40;38;5;75m << Cleaning >> \033[0m\n'
