@@ -13,9 +13,9 @@ OBJECTS := $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SOURCES))
 DEPS    := $(OBJECTS:.o=.d)
 
 CC := clang
-CFLAGS := -Iinclude -iquote $(SRCDIR) \
+CFLAGS := -iquote $(SRCDIR) \
           -MMD -MP \
-          -std=gnu23 -pedantic -Wall -Wextra \
+          -std=c23 -pedantic -Wall -Wextra \
           -Os
 LFLAGS := 
 LDLIBS := usb-1.0
@@ -32,7 +32,7 @@ format: $(SOURCES) $(HEADERS)
 
 iwyu: $(SOURCES) | format
 	@printf '\033[40;38;5;105m << IWYU check >> \033[0m\n'
-	@for f in $(filter-out %/gl.c,$(SOURCES)); do \
+	@for f in $(SOURCES); do \
 		include-what-you-use $(CFLAGS) "$$f" || true; \
 	done
 
