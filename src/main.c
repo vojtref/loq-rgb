@@ -37,13 +37,13 @@ int main(int argc, char **argv)
 
 	int r = -1;
 
-	if (libusb_init(NULL)) {
+	if (libusb_init(nullptr)) {
 		log_error("Failed to initialize libusb");
 		goto E0;
 	}
 
 	libusb_device_handle *dev =
-	    libusb_open_device_with_vid_pid(NULL, 0x048d, 0xc993);
+	    libusb_open_device_with_vid_pid(nullptr, 0x048d, 0xc993);
 	if (!dev) {
 		log_error("Failed to get RGB controller device handle");
 		goto E1;
@@ -72,7 +72,7 @@ int main(int argc, char **argv)
 E2:
 	libusb_close(dev);
 E1:
-	libusb_exit(NULL);
+	libusb_exit(nullptr);
 E0:
 	return r == sizeof p ? 0 : 1;
 }
