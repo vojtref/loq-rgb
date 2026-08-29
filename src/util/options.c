@@ -74,15 +74,15 @@ static int parse_rgb(const char *s, uint8_t rgb[3])
 void parse_opts(int argc, char **argv)
 {
 	static struct option long_options[] = {
-	    {"mode", optional_argument, nullptr, 'm'},
-	    {"speed", optional_argument, nullptr, 's'},
-	    {"brightness", optional_argument, nullptr, 'b'},
-	    {"zone1", optional_argument, nullptr, '1'},
-	    {"zone2", optional_argument, nullptr, '2'},
-	    {"zone3", optional_argument, nullptr, '3'},
-	    {"zone4", optional_argument, nullptr, '4'},
-	    {"help", optional_argument, nullptr, 'h'},
-	    {"verbose", optional_argument, nullptr, 'v'},
+	    {"mode", required_argument, nullptr, 'm'},
+	    {"speed", required_argument, nullptr, 's'},
+	    {"brightness", required_argument, nullptr, 'b'},
+	    {"zone1", required_argument, nullptr, '1'},
+	    {"zone2", required_argument, nullptr, '2'},
+	    {"zone3", required_argument, nullptr, '3'},
+	    {"zone4", required_argument, nullptr, '4'},
+	    {"help", required_argument, nullptr, 'h'},
+	    {"verbose", required_argument, nullptr, 'v'},
 	    {nullptr, 0, nullptr, 0},
 	};
 
