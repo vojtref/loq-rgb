@@ -8,6 +8,7 @@
 static FILE *log_file        = nullptr;
 static log_level_t log_level = LOG_LEVEL_WARNING;
 
+
 void log_init(const char *log_file_path)
 {
 	if (log_file_path == nullptr) return;
@@ -23,6 +24,7 @@ void log_init(const char *log_file_path)
 	}
 }
 
+
 void log_term(void)
 {
 	if (log_file == nullptr) return;
@@ -30,6 +32,7 @@ void log_term(void)
 	fclose(log_file);
 	log_file = nullptr;
 }
+
 
 void log_set_level(log_level_t level)
 {
@@ -60,7 +63,7 @@ static void log_write(FILE *file,
 		va_list args;                                                          \
 		va_start(args, fmt);                                                   \
                                                                                \
-		if (log_file != NULL) {                                                \
+		if (log_file != nullptr) {                                             \
 			va_list args_copy;                                                 \
 			va_copy(args_copy, args);                                          \
 			log_write(log_file, log_file_label, ts, fmt, args_copy);           \

@@ -9,6 +9,7 @@
 
 #include "util/logger.h"
 
+
 #define DEFAULT_VERBOSITY       LOG_LEVEL_WARNING
 #define DEFAULT_MODE            RGB_MODE_STATIC
 #define DEFAULT_MODE_NAME       "static"
@@ -54,7 +55,7 @@
 	"\t\tPrint this help message and exit"
 // clang-format on
 
-// Defaults
+
 options_t OPTIONS = {
     .verbosity  = DEFAULT_VERBOSITY,
     .mode       = DEFAULT_MODE,
@@ -88,6 +89,7 @@ static int parse_rgb(const char *s, uint8_t rgb[3])
 
 	return 0;
 }
+
 
 void parse_opts(int argc, char **argv)
 {

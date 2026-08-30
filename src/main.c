@@ -5,6 +5,7 @@
 #include "util/logger.h"
 #include "util/options.h"
 
+
 #define LENOVO_VENDOR_ID       0x048d
 #define RGB_REPORT_ID          0xcc
 #define RGB_COMMAND            0x16
@@ -25,6 +26,7 @@ static const uint16_t LENOVO_PRODUCT_IDS[] = {
     0xc963, // 2021 Ideapad
     0xc955, // 2020
 };
+
 
 int main(int argc, char **argv)
 {
@@ -50,9 +52,7 @@ int main(int argc, char **argv)
 	p[2]          = OPTIONS.mode;
 	p[3]          = OPTIONS.speed;
 	p[4]          = OPTIONS.brightness;
-	for (size_t zone = 0; zone < 4; ++zone) {
-		memcpy(&p[5 + 3 * zone], OPTIONS.zone_rgb[zone], 3);
-	}
+	memcpy(&p[5], OPTIONS.zone_rgb, 12);
 
 	int r = -1;
 
