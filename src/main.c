@@ -10,7 +10,7 @@
 #define RGB_COMMAND            0x16
 #define HID_SET_REPORT         0x09
 #define USB_HID_FEATURE_REPORT 0x03
-#define TRANSER_TIMEOUT_MS     1000
+#define TRANSFER_TIMEOUT_MS    1000
 
 static const uint16_t LENOVO_PRODUCT_IDS[] = {
     0xc995, // 2024 Pro
@@ -96,7 +96,7 @@ int main(int argc, char **argv)
 	                            0, // interface
 	                            p,
 	                            sizeof(p),
-	                            TRANSER_TIMEOUT_MS);
+	                            TRANSFER_TIMEOUT_MS);
 	if (r < 0) {
 		log_error("libusb: %s", libusb_error_name(r));
 	}
