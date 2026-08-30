@@ -97,6 +97,7 @@ void parse_opts(int argc, char **argv)
 		switch (c) {
 		case 'v':
 			OPTIONS.verbosity++;
+			log_set_level(OPTIONS.verbosity);
 			break;
 		case '1':
 		case '2':
