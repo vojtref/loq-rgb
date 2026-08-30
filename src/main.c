@@ -8,8 +8,13 @@
 #define LENOVO_VENDOR_ID           0x048d
 #define LENOVO_PRODUCT_ID_LOQ_2024 0xc993
 
-#define HID_SET_REPORT     0x09
+#define RGB_REPORT_ID 0xcc
+#define RGB_COMMAND   0x16
+
+#define HID_SET_REPORT         0x09
 #define USB_HID_FEATURE_REPORT 0x03
+
+#define TRANSER_TIMEOUT_MS 1000
 
 int main(int argc, char **argv)
 {
@@ -29,14 +34,13 @@ int main(int argc, char **argv)
 	}
 
 	log_debug("Assembling packet");
-	uint8_t p[33] = {
-	    0xcc,
-	    0x16,
-	    OPTIONS.mode,
-	    OPTIONS.speed,
-	    OPTIONS.brightness,
-	};
-	for (int z = 0; z < 4; z++) {
+	uint8_t p[33] = {0};
+	p[0]          = RGB_REPORT_ID;
+	p[1]          = RGB_COMMAND;
+	p[2]          = OPTIONS.mode;
+	p[3]          = OPTIONS.speed;
+	p[4]          = OPTIONS.brightness;
+	for (size_t z = 0; z < 4; z++) {
 		memcpy(&p[5 + 3 * z], OPTIONS.zone_rgb[z], 3);
 	}
 
@@ -72,11 +76,11 @@ int main(int argc, char **argv)
 	                                LIBUSB_REQUEST_TYPE_CLASS |
 	                                LIBUSB_RECIPIENT_INTERFACE,
 	                            HID_SET_REPORT,
-	                            (USB_HID_FEATURE_REPORT << 8) | p[0],
+	                            (USB_HID_FEATURE_REPORT << 8) | RGB_REPORT_ID,
 	                            0, // interface
 	                            p,
 	                            sizeof(p),
-	                            100);
+	                            TRANSER_TIMEOUT_MS);
 	if (r < 0) {
 		log_error("libusb: %s", libusb_error_name(r));
 	}
