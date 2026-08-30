@@ -27,22 +27,22 @@
 #define USAGE_STR                                                              \
 	"Usage: loq-rgb [OPTIONS]\n"                                               \
 	"Options:\n"                                                               \
-	"\t-m <MODE>, --mode=<MODE>\n"                                             \
+	"\t-m<MODE>, --mode=<MODE>\n"                                              \
 	"\t\tSets the RGB mode\n"                                                  \
 	"\t\tMust be one of: static, breath, wave, smooth\n"                       \
 	"\t\tdefault: " DEFAULT_MODE_NAME "\n"                                     \
-	"\t-s <SPEED>, --speed=<SPEED>\n"                                          \
+	"\t-s<SPEED>, --speed=<SPEED>\n"                                           \
 	"\t\tSets the speed of animated modes\n"                                   \
 	"\t\tShould be in range 1-4, other values clamped\n"                       \
 	"\t\tNote: ignored for mode static\n"                                      \
 	"\t\tdefault: " STR(DEFAULT_SPEED) "\n"                                    \
-	"\t-b <BRIGHTNESS>, --brightness=<BRIGHTNESS>\n"                           \
+	"\t-b<BRIGHTNESS>, --brightness=<BRIGHTNESS>\n"                            \
 	"\t\tSets the brightness level, must be one of: low, high\n"               \
 	"\t\tdefault: " DEFAULT_BRIGHTNESS_NAME "\n"                               \
-	"\t-1 <RGB>, --zone1=<RGB>\n"                                              \
-	"\t-2 <RGB>, --zone2=<RGB>\n"                                              \
-	"\t-3 <RGB>, --zone3=<RGB>\n"                                              \
-	"\t-4 <RGB>, --zone4=<RGB>\n"                                              \
+	"\t-1<RGB>, --zone1=<RGB>\n"                                               \
+	"\t-2<RGB>, --zone2=<RGB>\n"                                               \
+	"\t-3<RGB>, --zone3=<RGB>\n"                                               \
+	"\t-4<RGB>, --zone4=<RGB>\n"                                               \
 	"\t\tSets the color of the corresponding zone\n"                           \
 	"\t\tRGB must be a valid hex code (may be prefixed with #)\n"              \
 	"\t\tNote: ignored for modes wave, smooth\n"                               \
