@@ -13,11 +13,12 @@
 	"Usage: loq-rgb [OPTIONS]\n"                                               \
 	"Options:\n"                                                               \
 	"\t-m <MODE>, --mode=<MODE>\n"                                             \
-	"\t\tSets the RGB mode, must be one of: static, breath, wave, smooth\n"    \
+	"\t\tSets the RGB mode\n"                                                  \
+	"\t\tMust be one of: static, breath, wave, smooth\n"                       \
 	"\t\tdefault: static\n"                                                    \
 	"\t-s <SPEED>, --speed=<SPEED>\n"                                          \
-	"\t\tSets the speed of animated modes, should be in range 1-4, other "     \
-	"values clamped\n"                                                         \
+	"\t\tSets the speed of animated modes\n"                                   \
+	"\t\tShould be in range 1-4, other values clamped\n"                       \
 	"\t\tNote: ignored for mode static\n"                                      \
 	"\t\tdefault: 1\n"                                                         \
 	"\t-b <BRIGHTNESS>, --brightness=<BRIGHTNESS>\n"                           \
@@ -27,12 +28,13 @@
 	"\t-2 <RGB>, --zone2=<RGB>\n"                                              \
 	"\t-3 <RGB>, --zone3=<RGB>\n"                                              \
 	"\t-4 <RGB>, --zone4=<RGB>\n"                                              \
-	"\t\tSets the color of the corresponding zone, RGB must be a valid hex "   \
-	"code (may be prefixed with #)\n"                                          \
+	"\t\tSets the color of the corresponding zone\n"                           \
+	"\t\tRGB must be a valid hex code (may be prefixed with #)\n"              \
 	"\t\tNote: ignored for modes wave, smooth\n"                               \
 	"\t\tdefault: #ffffff\n"                                                   \
 	"\t-v, --verbose\n"                                                        \
-	"\t\tIncreases the output log verbosity, may be repeated\n"                \
+	"\t\tIncrease the output log verbosity\n"                                  \
+	"\t\tMay be repeated multiple times to be even more verbose\n"             \
 	"\t-h, --help\n"                                                           \
 	"\t\tPrint this help message and exit"
 
