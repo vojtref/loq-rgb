@@ -1,6 +1,6 @@
 # loq-rgb
 
-Small Linux command line utility to control the RGB of the keyboard on (at least some) Lenovo LOQ laptops.
+Small Linux command line utility to control the RGB of the keyboard on (at least some) Lenovo LOQ and Legion laptops.
 
 ## Building and installing
 
