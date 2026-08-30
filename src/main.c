@@ -67,6 +67,7 @@ int main(int argc, char **argv)
 	for (size_t i = 0;
 	     i < sizeof(LENOVO_PRODUCT_IDS) / sizeof(*LENOVO_PRODUCT_IDS);
 	     ++i) {
+		log_debug("Trying product ID: 0x%04x", LENOVO_PRODUCT_IDS[i]);
 		dev = libusb_open_device_with_vid_pid(nullptr,
 		                                      LENOVO_VENDOR_ID,
 		                                      LENOVO_PRODUCT_IDS[i]);
