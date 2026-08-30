@@ -11,11 +11,11 @@ DEPS    := $(OBJECTS:.o=.d)
 
 CPPFLAGS += $(shell pkg-config --cflags libusb-1.0) \
             -iquote $(SRCDIR)
-CFLAGS += -MMD -MP \
-          -std=c23 -pedantic -Wall -Wextra \
-          -Os
-LFFLAGS +=
-LDLIBS += $(shell pkg-config --libs libusb-1.0)
+CFLAGS   += -MMD -MP \
+            -std=c23 -pedantic -Wall -Wextra \
+            -Os
+LDFLAGS  +=
+LDLIBS   += $(shell pkg-config --libs libusb-1.0)
 
 
 all: $(BINDIR)/$(TARGET)
