@@ -5,6 +5,12 @@
 #include "util/logger.h"
 #include "util/options.h"
 
+#define LENOVO_VENDOR_ID           0x048d
+#define LENOVO_PRODUCT_ID_LOQ_2024 0xc993
+
+#define HID_SET_REPORT     0x09
+#define USB_HID_FEATURE_REPORT 0x03
+
 int main(int argc, char **argv)
 {
 	parse_opts(argc, argv);
@@ -44,7 +50,9 @@ int main(int argc, char **argv)
 
 	log_debug("Opening RGB controller handle");
 	libusb_device_handle *dev =
-	    libusb_open_device_with_vid_pid(nullptr, 0x048d, 0xc993);
+	    libusb_open_device_with_vid_pid(nullptr,
+	                                    LENOVO_VENDOR_ID,
+	                                    LENOVO_PRODUCT_ID_LOQ_2024);
 	if (!dev) {
 		log_error("Failed to open RGB controller device handle");
 		goto E1;
@@ -60,10 +68,12 @@ int main(int argc, char **argv)
 
 	log_debug("Transferring packet");
 	r = libusb_control_transfer(dev,
-	                            0x21,   /* OUT | CLASS | INTERFACE */
-	                            0x09,   /* HID SET_REPORT */
-	                            0x03cc, /* FEATURE report, ID 0xcc */
-	                            0x0000, /* interface 0 */
+	                            LIBUSB_ENDPOINT_OUT |
+	                                LIBUSB_REQUEST_TYPE_CLASS |
+	                                LIBUSB_RECIPIENT_INTERFACE,
+	                            HID_SET_REPORT,
+	                            (USB_HID_FEATURE_REPORT << 8) | p[0],
+	                            0, // interface
 	                            p,
 	                            sizeof(p),
 	                            100);

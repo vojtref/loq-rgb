@@ -9,21 +9,36 @@
 
 #include "util/logger.h"
 
+#define DEFAULT_VERBOSITY       LOG_LEVEL_WARNING
+#define DEFAULT_MODE            RGB_MODE_STATIC
+#define DEFAULT_MODE_NAME       "static"
+#define DEFAULT_SPEED           1
+#define DEFAULT_BRIGHTNESS      BRIGHTNESS_LOW
+#define DEFAULT_BRIGHTNESS_NAME "low"
+#define DEFAULT_COLOR(X)        X(ff, ff, ff)
+
+// Preprocessor helpers
+#define STR_(X)              #X
+#define STR(X)               STR_(X)
+#define COLOR_BYTES(R, G, B) {0x##R, 0x##G, 0x##B}
+#define COLOR_STR(R, G, B)   "#" #R #G #B
+
+// clang-format off
 #define USAGE_STR                                                              \
 	"Usage: loq-rgb [OPTIONS]\n"                                               \
 	"Options:\n"                                                               \
 	"\t-m <MODE>, --mode=<MODE>\n"                                             \
 	"\t\tSets the RGB mode\n"                                                  \
 	"\t\tMust be one of: static, breath, wave, smooth\n"                       \
-	"\t\tdefault: static\n"                                                    \
+	"\t\tdefault: " DEFAULT_MODE_NAME "\n"                                     \
 	"\t-s <SPEED>, --speed=<SPEED>\n"                                          \
 	"\t\tSets the speed of animated modes\n"                                   \
 	"\t\tShould be in range 1-4, other values clamped\n"                       \
 	"\t\tNote: ignored for mode static\n"                                      \
-	"\t\tdefault: 1\n"                                                         \
+	"\t\tdefault: " STR(DEFAULT_SPEED) "\n"                                    \
 	"\t-b <BRIGHTNESS>, --brightness=<BRIGHTNESS>\n"                           \
 	"\t\tSets the brightness level, must be one of: low, high\n"               \
-	"\t\tdefault: low\n"                                                       \
+	"\t\tdefault: " DEFAULT_BRIGHTNESS_NAME "\n"                               \
 	"\t-1 <RGB>, --zone1=<RGB>\n"                                              \
 	"\t-2 <RGB>, --zone2=<RGB>\n"                                              \
 	"\t-3 <RGB>, --zone3=<RGB>\n"                                              \
@@ -31,26 +46,27 @@
 	"\t\tSets the color of the corresponding zone\n"                           \
 	"\t\tRGB must be a valid hex code (may be prefixed with #)\n"              \
 	"\t\tNote: ignored for modes wave, smooth\n"                               \
-	"\t\tdefault: #ffffff\n"                                                   \
+	"\t\tdefault: " DEFAULT_COLOR(COLOR_STR) "\n"                              \
 	"\t-v, --verbose\n"                                                        \
 	"\t\tIncrease the output log verbosity\n"                                  \
 	"\t\tMay be repeated multiple times to be even more verbose\n"             \
 	"\t-h, --help\n"                                                           \
 	"\t\tPrint this help message and exit"
+// clang-format on
 
 // Defaults
 options_t OPTIONS = {
-    .verbosity  = LOG_LEVEL_WARNING,
-    .mode       = RGB_MODE_STATIC,
-    .speed      = 0x01,
-    .brightness = BRIGHTNESS_LOW,
+    .verbosity  = DEFAULT_VERBOSITY,
+    .mode       = DEFAULT_MODE,
+    .speed      = DEFAULT_SPEED,
+    .brightness = DEFAULT_BRIGHTNESS,
 
     .zone_rgb =
         {
-            {0xff, 0xff, 0xff},
-            {0xff, 0xff, 0xff},
-            {0xff, 0xff, 0xff},
-            {0xff, 0xff, 0xff},
+            DEFAULT_COLOR(COLOR_BYTES),
+            DEFAULT_COLOR(COLOR_BYTES),
+            DEFAULT_COLOR(COLOR_BYTES),
+            DEFAULT_COLOR(COLOR_BYTES),
         },
 };
 
