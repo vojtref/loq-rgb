@@ -5,16 +5,26 @@
 #include "util/logger.h"
 #include "util/options.h"
 
-#define LENOVO_VENDOR_ID           0x048d
-#define LENOVO_PRODUCT_ID_LOQ_2024 0xc993
-
-#define RGB_REPORT_ID 0xcc
-#define RGB_COMMAND   0x16
-
+#define LENOVO_VENDOR_ID       0x048d
+#define RGB_REPORT_ID          0xcc
+#define RGB_COMMAND            0x16
 #define HID_SET_REPORT         0x09
 #define USB_HID_FEATURE_REPORT 0x03
+#define TRANSER_TIMEOUT_MS     1000
 
-#define TRANSER_TIMEOUT_MS 1000
+static const uint16_t LENOVO_PRODUCT_IDS[] = {
+    0xc995, // 2024 Pro
+    0xc994, // 2024
+    0xc993, // 2024 LOQ
+    0xc985, // 2023 Pro
+    0xc984, // 2023
+    0xc983, // 2023 LOQ
+    0xc975, // 2022
+    0xc973, // 2022 Ideapad
+    0xc965, // 2021
+    0xc963, // 2021 Ideapad
+    0xc955, // 2020
+};
 
 int main(int argc, char **argv)
 {
@@ -25,12 +35,12 @@ int main(int argc, char **argv)
 	log_info("  Speed: 0x%02x", OPTIONS.speed);
 	log_info("  Brightness: 0x%02x", OPTIONS.brightness);
 	log_info("  Zone colors:");
-	for (size_t z = 0; z < 4; ++z) {
+	for (size_t zone = 0; zone < 4; ++zone) {
 		log_info("    %d: #%02x%02x%02x",
-		         z,
-		         OPTIONS.zone_rgb[z][0],
-		         OPTIONS.zone_rgb[z][1],
-		         OPTIONS.zone_rgb[z][2]);
+		         zone,
+		         OPTIONS.zone_rgb[zone][0],
+		         OPTIONS.zone_rgb[zone][1],
+		         OPTIONS.zone_rgb[zone][2]);
 	}
 
 	log_debug("Assembling packet");
@@ -40,8 +50,8 @@ int main(int argc, char **argv)
 	p[2]          = OPTIONS.mode;
 	p[3]          = OPTIONS.speed;
 	p[4]          = OPTIONS.brightness;
-	for (size_t z = 0; z < 4; z++) {
-		memcpy(&p[5 + 3 * z], OPTIONS.zone_rgb[z], 3);
+	for (size_t zone = 0; zone < 4; ++zone) {
+		memcpy(&p[5 + 3 * zone], OPTIONS.zone_rgb[zone], 3);
 	}
 
 	int r = -1;
@@ -53,10 +63,15 @@ int main(int argc, char **argv)
 	}
 
 	log_debug("Opening RGB controller handle");
-	libusb_device_handle *dev =
-	    libusb_open_device_with_vid_pid(nullptr,
-	                                    LENOVO_VENDOR_ID,
-	                                    LENOVO_PRODUCT_ID_LOQ_2024);
+	libusb_device_handle *dev;
+	for (size_t i = 0;
+	     i < sizeof(LENOVO_PRODUCT_IDS) / sizeof(*LENOVO_PRODUCT_IDS);
+	     ++i) {
+		dev = libusb_open_device_with_vid_pid(nullptr,
+		                                      LENOVO_VENDOR_ID,
+		                                      LENOVO_PRODUCT_IDS[i]);
+		if (dev) break;
+	}
 	if (!dev) {
 		log_error("Failed to open RGB controller device handle");
 		goto E1;
