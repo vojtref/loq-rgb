@@ -1,10 +1,4 @@
-MAKEFLAGS += --jobs=$(shell nproc 2>/dev/null || echo 1)
-MAKEFLAGS += --output-sync=target
-
-TARGET := $(shell basename $(CURDIR))
-
-PREFIX ?= /usr/local
-DESTDIR ?=
+TARGET := loq-rgb
 
 SRCDIR := src
 OBJDIR := obj
@@ -15,15 +9,24 @@ HEADERS := $(shell find $(SRCDIR) -name '*.h')
 OBJECTS := $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SOURCES))
 DEPS    := $(OBJECTS:.o=.d)
 
-CC := clang
-CFLAGS := -iquote $(SRCDIR) \
-          -MMD -MP \
+CPPFLAGS += $(shell pkg-config --cflags libusb-1.0) \
+            -iquote $(SRCDIR)
+CFLAGS += -MMD -MP \
           -std=c23 -pedantic -Wall -Wextra \
           -Os
-LFLAGS :=
-LDLIBS := usb-1.0
+LFFLAGS +=
+LDLIBS += $(shell pkg-config --libs libusb-1.0)
+
 
 all: $(BINDIR)/$(TARGET)
+
+clean:
+	@printf '\033[40;38;5;75m << Cleaning >> \033[0m\n'
+	@rm -rf $(OBJDIR) $(BINDIR)
+
+
+PREFIX ?= /usr/local
+DESTDIR ?=
 
 install: all
 	install -Dm755 $(BINDIR)/$(TARGET) $(DESTDIR)$(PREFIX)/bin/$(TARGET)
@@ -31,30 +34,28 @@ install: all
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/$(TARGET)
 
-clean:
-	@printf '\033[40;38;5;75m << Cleaning >> \033[0m\n'
-	@rm -rf $(OBJDIR) $(BINDIR)
 
 format: $(SOURCES) $(HEADERS)
 	@printf '\033[40;38;5;69m << Formatting >> \033[0m\n'
 	clang-format --style=file:.clang_format -i $^
 
-iwyu: $(SOURCES) | format
+iwyu: $(SOURCES)
 	@printf '\033[40;38;5;105m << IWYU check >> \033[0m\n'
 	@for f in $(SOURCES); do \
-		include-what-you-use $(CFLAGS) "$$f" || true; \
+		include-what-you-use $(CPPFLAGS) $(CFLAGS) "$$f" || true; \
 	done
+
 
 $(BINDIR)/$(TARGET): $(OBJECTS)
 	@printf '\033[40;38;5;171m << Linking >> \033[0m\n'
 	@mkdir -p $(@D)
-	$(CC) $(LFLAGS) $^ $(addprefix -l,$(LDLIBS)) -o $@
+	$(CC) $(LDFLAGS) -o $@ $^ $(LDLIBS)
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c | iwyu
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@printf '\033[40;38;5;141m << Compiling >> \033[0m\n'
 	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
 -include $(DEPS)
 
-.PHONY: all install uninstall clean format iwyu
+.PHONY: all clean install uninstall format iwyu

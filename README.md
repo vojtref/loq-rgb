@@ -2,6 +2,25 @@
 
 Small Linux command line utility to control the RGB of the keyboard on (at least some) Lenovo LOQ laptops.
 
+## Building and installing
+
+### Build dependencies
+- `pkg-config`
+- `libusb-1.0`
+    - `libusb-1.0.0-dev` (Ubuntu/Debian)
+    - `libusb1-devel` (Fedora)
+    - `libusb` (Arch)
+    - `libusb-devel` (Void)
+    - or your distro's equivalent package
+
+### Building
+- `make all`
+- executable placed in the `bin` subdirectory
+
+### Installing
+- `sudo make install` to install system-wide to `/usr/local/bin`
+- `make install PREFIX="$HOME/.local"` to install user-locally to `~/.local/bin`
+
 ## AI disclosure
 
 [![REAL rating: 3](/real-rating-3.png)](https://www.realgoodai.org/real-rating)
