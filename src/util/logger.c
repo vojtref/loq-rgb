@@ -4,8 +4,6 @@
 #include <stdio.h>
 #include <time.h>
 
-#define MAX_STACKTRACE_DEPTH 30
-
 
 static FILE *log_file        = nullptr;
 static log_level_t log_level = LOG_LEVEL_WARNING;
