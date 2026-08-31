@@ -21,11 +21,11 @@ Small Linux command line utility to control the RGB of the keyboard on (at least
 - `sudo make install` to install system-wide to `/usr/local/bin`
 - `make install PREFIX="$HOME/.local"` to install user-locally to `~/.local/bin`
 
-### Usage
+## Usage
 
 `loq-rgb [OPTIONS]`
 
-#### Options
+### Options
 - `-m<MODE>`, `--mode=<MODE>`
     - Sets the RGB mode
     - `<MODE>` must be one of: `static`, `breath`, `wave`, `smooth`
