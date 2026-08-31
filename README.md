@@ -47,6 +47,7 @@ Small Linux command line utility to control the RGB of the keyboard on (at least
     - Sets the color of the corresponding zone
     - `<COLOR>` must be a valid RGB hex code
         - may be prefixed with `#`, also accepted without prefix
+    - Default: `#ffffff`
 - `-v`, `--verbose`
     - Increases output log verbosity
     - May be repeated multiple times
