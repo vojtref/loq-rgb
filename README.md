@@ -1,6 +1,6 @@
 # loq-rgb
 
-Small Linux command line utility to control the RGB of the keyboard on (at least some) Lenovo LOQ and Legion laptops.
+Small Linux command line utility to control the RGB of the keyboard on (at least some) Lenovo LOQ and Legion laptops with 4-zone RGB.
 
 ## Building and installing
 
@@ -20,6 +20,38 @@ Small Linux command line utility to control the RGB of the keyboard on (at least
 ### Installing
 - `sudo make install` to install system-wide to `/usr/local/bin`
 - `make install PREFIX="$HOME/.local"` to install user-locally to `~/.local/bin`
+
+### Usage
+
+`loq-rgb [OPTIONS]`
+
+#### Options
+- `-m<MODE>`, `--mode=<MODE>`
+    - Sets the RGB mode
+    - `<MODE>` must be one of: `static`, `breath`, `wave`, `smooth`
+    - Default: `static`
+- `-s<SPEED>`, `--speed=<SPEED>`
+    - Sets the speed of animated modes
+    - `<SPEED>` should be an integer in the range 1-4
+        - other values will be clamped to the range
+    - Note: does nothing in the mode `static`
+    - Default: `1`
+- `-b<BRIGHTNESS>`, `--brightness=<BRIGHTNESS>`
+    - Sets the brightness level
+    - `<BRIGHTNESS>` must be one of: `low`, `high`
+    - Default: `low`
+- `-1<COLOR>`, `--zone1=<COLOR>`
+- `-2<COLOR>`, `--zone2=<COLOR>`
+- `-3<COLOR>`, `--zone3=<COLOR>`
+- `-4<COLOR>`, `--zone4=<COLOR>`
+    - Sets the color of the corresponding zone
+    - `<COLOR>` must be a valid RGB hex code
+        - may be prefixed with `#`, also accepted without prefix
+- `-v`, `--verbose`
+    - Increases output log verbosity
+    - May be repeated multiple times
+- `-h`, `--help`
+    - Prints a help message and exits
 
 ## AI disclosure
 
