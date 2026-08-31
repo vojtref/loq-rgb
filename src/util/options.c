@@ -28,31 +28,34 @@
 #define USAGE_STR                                                              \
 	"Usage: loq-rgb [OPTIONS]\n"                                               \
 	"Options:\n"                                                               \
-	"\t-m<MODE>, --mode=<MODE>\n"                                              \
-	"\t\tSets the RGB mode\n"                                                  \
-	"\t\tMust be one of: static, breath, wave, smooth\n"                       \
-	"\t\tdefault: " DEFAULT_MODE_NAME "\n"                                     \
-	"\t-s<SPEED>, --speed=<SPEED>\n"                                           \
-	"\t\tSets the speed of animated modes\n"                                   \
-	"\t\tShould be in range 1-4, other values clamped\n"                       \
-	"\t\tNote: ignored for mode static\n"                                      \
-	"\t\tdefault: " STR(DEFAULT_SPEED) "\n"                                    \
-	"\t-b<BRIGHTNESS>, --brightness=<BRIGHTNESS>\n"                            \
-	"\t\tSets the brightness level, must be one of: low, high\n"               \
-	"\t\tdefault: " DEFAULT_BRIGHTNESS_NAME "\n"                               \
-	"\t-1<RGB>, --zone1=<RGB>\n"                                               \
-	"\t-2<RGB>, --zone2=<RGB>\n"                                               \
-	"\t-3<RGB>, --zone3=<RGB>\n"                                               \
-	"\t-4<RGB>, --zone4=<RGB>\n"                                               \
-	"\t\tSets the color of the corresponding zone\n"                           \
-	"\t\tRGB must be a valid hex code (may be prefixed with #)\n"              \
-	"\t\tNote: ignored for modes wave, smooth\n"                               \
-	"\t\tdefault: " DEFAULT_COLOR(COLOR_STR) "\n"                              \
-	"\t-v, --verbose\n"                                                        \
-	"\t\tIncrease the output log verbosity\n"                                  \
-	"\t\tMay be repeated multiple times to be even more verbose\n"             \
-	"\t-h, --help\n"                                                           \
-	"\t\tPrint this help message and exit"
+	"    -m<MODE>, --mode=<MODE>\n"                                            \
+	"        Sets the RGB mode\n"                                              \
+	"        <MODE> must be one of: static, breath, wave, smooth\n"            \
+	"        Default: " DEFAULT_MODE_NAME "\n"                                 \
+	"    -s<SPEED>, --speed=<SPEED>\n"                                         \
+	"        Sets the speed of animated modes\n"                               \
+	"        <SPEED> should be an integer in the range 1-4,\n"                 \
+	"        other values will be clamped to that range\n"                     \
+	"        Note: does nothing in mode static\n"                              \
+	"        Default: " STR(DEFAULT_SPEED) "\n"                                \
+	"    -b<BRIGHTNESS>, --brightness=<BRIGHTNESS>\n"                          \
+	"        Sets the brightness level\n"                                      \
+	"        <BRIGHTNESS> must be one of: low, high\n"                         \
+	"        Default: " DEFAULT_BRIGHTNESS_NAME "\n"                           \
+	"    -1<COLOR>, --zone1=<COLOR>\n"                                         \
+	"    -2<COLOR>, --zone2=<COLOR>\n"                                         \
+	"    -3<COLOR>, --zone3=<COLOR>\n"                                         \
+	"    -4<COLOR>, --zone4=<COLOR>\n"                                         \
+	"        Sets the color of the corresponding zone\n"                       \
+	"        <COLOR> must be a valid RGB hex code\n"                           \
+	"        <COLOR> may be prefixed with #, also accepted without prefix\n"   \
+	"        Note: does nothing in modes wave, smooth\n"                       \
+	"        Default: " DEFAULT_COLOR(COLOR_STR) "\n"                          \
+	"    -v, --verbose\n"                                                      \
+	"        Increases output log verbosity\n"                                 \
+	"        May be repeated multiple times\n"                                 \
+	"    -h, --help\n"                                                         \
+	"        Print this help message and exit"
 // clang-format on
 
 

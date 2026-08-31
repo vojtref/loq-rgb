@@ -34,7 +34,7 @@ Small Linux command line utility to control the RGB of the keyboard on (at least
     - Sets the speed of animated modes
     - `<SPEED>` should be an integer in the range 1-4
         - other values will be clamped to the range
-    - Note: does nothing in the mode `static`
+    - Note: does nothing in mode `static`
     - Default: `1`
 - `-b<BRIGHTNESS>`, `--brightness=<BRIGHTNESS>`
     - Sets the brightness level
@@ -47,6 +47,7 @@ Small Linux command line utility to control the RGB of the keyboard on (at least
     - Sets the color of the corresponding zone
     - `<COLOR>` must be a valid RGB hex code
         - may be prefixed with `#`, also accepted without prefix
+    - Note: does nothing in modes `wave`, `smooth`
     - Default: `#ffffff`
 - `-v`, `--verbose`
     - Increases output log verbosity
