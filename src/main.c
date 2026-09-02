@@ -14,17 +14,17 @@
 #define TRANSFER_TIMEOUT_MS    1000
 
 static const uint16_t LENOVO_PRODUCT_IDS[] = {
-    0xc995, // 2024 Pro
-    0xc994, // 2024
     0xc993, // 2024 LOQ
-    0xc985, // 2023 Pro
-    0xc984, // 2023
     0xc983, // 2023 LOQ
-    0xc975, // 2022
+    0xc995, // 2024 Legion Pro
+    0xc985, // 2023 Legion Pro
+    0xc994, // 2024 Legion
+    0xc984, // 2023 Legion
+    0xc975, // 2022 Legion
+    0xc965, // 2021 Legion
+    0xc955, // 2020 Legion
     0xc973, // 2022 Ideapad
-    0xc965, // 2021
     0xc963, // 2021 Ideapad
-    0xc955, // 2020
 };
 
 
@@ -54,7 +54,7 @@ int main(int argc, char **argv)
 	p[4]          = OPTIONS.brightness;
 	memcpy(&p[5], OPTIONS.zone_rgb, 12);
 
-	int r = -1;
+	int r = 0;
 
 	log_debug("Initializing libusb");
 	if (libusb_init(nullptr)) {
@@ -93,7 +93,7 @@ int main(int argc, char **argv)
 	                                LIBUSB_RECIPIENT_INTERFACE,
 	                            HID_SET_REPORT,
 	                            (USB_HID_FEATURE_REPORT << 8) | RGB_REPORT_ID,
-	                            0, // interface
+	                            0,
 	                            p,
 	                            sizeof(p),
 	                            TRANSFER_TIMEOUT_MS);
